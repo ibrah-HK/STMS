@@ -2,6 +2,11 @@
 
 @section('title', 'Tasks List')
 @section('content')
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3> Task list </h3>
             <a class="btn btn-primary mb-3" href="{{ route('tasks.create')}}">create new task</a>

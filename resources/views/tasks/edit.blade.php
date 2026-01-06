@@ -24,10 +24,16 @@
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ $task->title }}" required>
             </div>
+            @error('title')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description">{{ $task->description }}</textarea>
             </div>
+            @error('description')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" id="status" name="status" required>

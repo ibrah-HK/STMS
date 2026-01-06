@@ -9,10 +9,7 @@
 
     <form action="{{ route('tasks.store') }}" method="POST">
         @csrf
-        {{-- <div class="mb-3">
-            <label for="category_id" class="form-label">Category ID</label>
-            <input type="number" class="form-control" id="category_id" name="category_id" required>
-        </div> --}}
+
         <div>
             <label for="category_id" class="form-label">Category</label>
             <select class="form-select" id="category_id" name="category_id" required>
@@ -43,7 +40,6 @@
                 <option value="completed">Completed</option>
             </select>
         </div>
-        <a href="{{ route('tasks.store') }}" class="btn btn-primary">Create Task</a>
-        {{-- <button type="submit" class="btn btn-primary">Create Task</button> --}}
+        <button type="submit" class="btn btn-primary">Create Task</button>
     </form>
 @endsection
