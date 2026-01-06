@@ -36,6 +36,8 @@ class taskController extends Controller
         ]);
 
         Task::create($task);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -68,6 +70,8 @@ class taskController extends Controller
 
         $existingTask = Task::findOrFail($id);
         $existingTask->update($task);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
