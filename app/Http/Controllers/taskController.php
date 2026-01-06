@@ -12,7 +12,8 @@ class taskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::all();
+        return view('tasks.index', ["tasks" => $tasks]);
     }
 
     /**
@@ -37,7 +38,7 @@ class taskController extends Controller
 
         Task::create($task);
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
     /**
@@ -53,7 +54,8 @@ class taskController extends Controller
      */
     public function edit(string $id)
     {
-        return view('tasks.edit');
+        $task = Task::findOrFail($id);
+        return view('tasks.edit', ['task' => $task]);
     }
 
     /**
@@ -71,7 +73,7 @@ class taskController extends Controller
         $existingTask = Task::findOrFail($id);
         $existingTask->update($task);
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     /**
@@ -81,5 +83,7 @@ class taskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 }
