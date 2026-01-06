@@ -16,8 +16,7 @@
                 <thead>
                     <tr>
                         <th>S/N</th>
-                        <th>ID</th>
-                        <th>Category ID</th>
+                        <th>Category-name</th>
                         <th>Title</th>
                         <th>Description</th>
                         <th>Status</th>
@@ -31,8 +30,7 @@
                                 static $number = 0;
                             @endphp
                             <td>{{ $number++ }}</td>
-                            <td>{{ $task->id }}</td>
-                            <td>{{ $task->category_id }}</td>
+                            <td>{{ $task->category->name }}</td>
                             <td>{{ $task->title }}</td>
                             <td>{{ $task->description }}</td>
                             <td>{{ $task->status }}</td>
