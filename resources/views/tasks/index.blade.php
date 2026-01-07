@@ -27,7 +27,7 @@
                     @foreach ($tasks as $task)
                         <tr>
                             @php
-                                static $number = 0;
+                                static $number = 1;
                             @endphp
                             <td>{{ $number++ }}</td>
                             <td>{{ $task->category->name }}</td>
