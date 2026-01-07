@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeTaskRequest;
+use App\Http\Requests\UpdatetaskRequest;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
@@ -12,7 +14,8 @@ class taskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::all();
+        return view('tasks.index', ["tasks" => $tasks]);
     }
 
     /**
@@ -26,18 +29,13 @@ class taskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(storeTaskRequest $request)
     {
-        $task = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,completed',
-        ]);
+        $task = $request->validated();
 
         Task::create($task);
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
     /**
@@ -53,25 +51,21 @@ class taskController extends Controller
      */
     public function edit(string $id)
     {
-        return view('tasks.edit');
+        $task = Task::findOrFail($id);
+        return view('tasks.edit', ['task' => $task]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatetaskRequest $request, string $id)
     {
-        $task = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,completed',
-        ]);
+        $task = $request->validated();
 
         $existingTask = Task::findOrFail($id);
         $existingTask->update($task);
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
     /**
@@ -81,5 +75,7 @@ class taskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 }
