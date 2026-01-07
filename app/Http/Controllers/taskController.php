@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeTaskRequest;
+use App\Http\Requests\UpdatetaskRequest;
 use Illuminate\Http\Request;
 use App\Models\Task;
 
@@ -27,14 +29,9 @@ class taskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(storeTaskRequest $request)
     {
-        $task = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,completed',
-        ]);
+        $task = $request->validated();
 
         Task::create($task);
 
@@ -61,14 +58,9 @@ class taskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatetaskRequest $request, string $id)
     {
-        $task = $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,completed',
-        ]);
+        $task = $request->validated();
 
         $existingTask = Task::findOrFail($id);
         $existingTask->update($task);
